@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+
+<launch>
+
+	<param name="/use_sim_time" value="true"/>
+
+	<arg name="_ip_address"  default="192.168.0.10"/>
+
+	<!-- Start the static_transform_publisher node -->
+	<!-- <node pkg="tf" type="static_transform_publisher" name="base_laser_tf" args="0.31 0 0 -0.016 0 0 base_link laser_link 100" > </node> -->
+	<!-- <node pkg="tf" type="static_transform_publisher" name="laser_imu_tf" args="-0.5 0 0 0 0 0 laser_link imu_link 100"  > </node>       -->
+	<!-- <node pkg="tf" type="static_transform_publisher" name="map_odom_combined_tf" args="0.0 0 0 0 0 0 map odom_combined 100" > </node>   -->
+	<node pkg="tf" type="static_transform_publisher" name="map_odom_tf" args="0.0 0.0 0.0 0.0 0.0 0.0 map odom 100"  > </node>
+	<node pkg="tf" type="static_transform_publisher" name="map_laser_odom_tf" args="0.0 0.0 0.0 0.0 0.0 0.0 map laser_odom 100"  > </node>
+
+	<!-- Start the base_controller node   launch-prefix="gnome-terminal -e"  -->
+	<node pkg="occupany_mapping" type="occupany_mapping" name="occupany_mapping" output="screen"  > </node> 
+	<!--remap from="/usb_cam/image_raw" to="/camera/image_raw" -->
+
+
+	  
+	<node pkg="rviz" type="rviz" name="rviz" args="-d $(find occupany_mapping)/rviz/lidar_slam.rviz"/>
+
+
+</launch>
